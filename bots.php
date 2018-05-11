@@ -19,7 +19,7 @@ $client->connect();
  
 $client->on('message', function ($data) use ($client) {
     $client->getChannelGroupOrDMByID($data['channel'])->then(function ($channel) use ($client, $data) {
-            
+        
         
         if ($data['text'] == "shuffle"){
             $a = ['Jovi',
