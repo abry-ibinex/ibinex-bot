@@ -1,14 +1,14 @@
 # ibinex-bot
 
- 1. Admin MOdule
-  - Admin commands
+ 1. Admin Module
+   - Admin commands
     + /startgame 
     + /cancelgame 
     +
     +
     
  2. User Module
-  - User commands
+   - User commands
     + /register name team ###/regster Ansell 1  (Ricky)  
     + /checkstandings
     + /unregister
