@@ -19,10 +19,7 @@ $client->setToken($bot_key);
 $client->connect();
  
 $client->on('message', function ($data) use ($client) {
-    $client->getChannelGroupOrDMByID($data['channel'])->then(function ($channel) use ($client, $data) {
-        
-        
-        if ($data['text'] == "shuffle" && 
+    if ($data['text'] == "shuffle" && 
             (
                 $data['user']=="U9ZF62T2P" ||
                 $data['user']=="UA1LJL47Q" ||
@@ -31,6 +28,11 @@ $client->on('message', function ($data) use ($client) {
                 $data['user']=="UA1SWDZ39"
             )
            ){
+        
+        $client->getChannelGroupOrDMByID($data['channel'])->then(function ($channel) use ($client, $data) {
+        
+        
+        
             $a = ['Jovi',
                 'Reynaldo',
                 'Chester',
@@ -68,7 +70,7 @@ $client->on('message', function ($data) use ($client) {
             shuffle($a);
             $groupa = array_slice($a,0,11);
             $groupb = array_slice($a,11,11);
-            $groupc = array_slice($a,23,10);
+            $groupc = array_slice($a,22,11);
 
             $m = "Group A: \n";
 
@@ -99,8 +101,9 @@ $client->on('message', function ($data) use ($client) {
                         ->create();
             $client->postMessage($message);
             
-        }
-    });
+        
+        });
+    }
 });
 
 $loop->run();
