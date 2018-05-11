@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL);
 /**
  * App Name: iBinex Slack Bot
  * Description: Description of the plugin.
@@ -10,86 +10,43 @@
  */
 
 require_once('vendor/autoload.php');
+include('core.php');
  
 $loop = React\EventLoop\Factory::create();
  
 $client = new Slack\RealTimeClient($loop);
-$client->setToken('xoxb-361644715173-EgmYTwiAVeYM7VFg9PEjL0hx');
+$client->setToken('xoxb-361644715173-GfGCbugLKI73r3PJw0JM4c2L');
 $client->connect();
  
 $client->on('message', function ($data) use ($client) {
     $client->getChannelGroupOrDMByID($data['channel'])->then(function ($channel) use ($client, $data) {
+       
+       
+        if(preg_match('/^<@UAMJYM153> (.*)/', $data['text'], $match)) {
+
+            $command = new Ibinex\Command;
+            if($command->parseCommand($match[1], $data['user'])) {
+
+                $message = $command->run();
+
+            }
+
+        }
+
+
+        if(!empty($message)) {
+
+                    $message = $client->getMessageBuilder()
+                                ->setText($message)
+                                ->setChannel($channel)
+                                ->create();
+                    $client->postMessage($message);
+        }
+         
+
+
             
         
-        if ($data['text'] == "shuffle"){
-            $a = ['Jovi',
-                'Reynaldo',
-                'Chester',
-                'Joshua',
-                'Cristina',
-                'Ricky',
-                'Kevin Jordan',
-                'Stephene',
-                'Gabriel',
-                'Joel',
-                'Ace',
-                'Abry',
-                'Lester',
-                'Mark',
-                'Sean',
-                'JC',
-                'Kevin Soriano',
-                'PJ',
-                'Philip',
-                'Leo',
-                'Melvin',
-                'Jeevon',
-                'Ariel',
-                'Michael',
-                'Rochelle',
-                'Ryan',
-                'Adrian',
-                'Nelson',
-                'Izza',
-                'Bryan',
-                'Eric',
-                'Dennis'];
-
-            shuffle($a);
-            $groupa = array_slice($a,0,11);
-            $groupb = array_slice($a,11,11);
-            $groupc = array_slice($a,23,10);
-
-            $m = "Group A: \n";
-
-            foreach ($groupa as $v){
-                $m .= "$v, ";
-            }
-            
-            $m = rtrim($m,',');
-            
-            $m .= "\nGroup B: \n";
-
-            foreach ($groupb as $v){
-                $m .= "$v, ";
-            }
-            $m = rtrim($m,',');
-            $m .= "\nGroup C: \n";
-
-
-            foreach ($groupc as $v){
-                $m .= "$v, ";
-            }
-            
-            $m = rtrim($m,',');
-
-            $message = $client->getMessageBuilder()
-                        ->setText($m)
-                        ->setChannel($channel)
-                        ->create();
-            $client->postMessage($message);
-            
-        }
     });
 });
 
