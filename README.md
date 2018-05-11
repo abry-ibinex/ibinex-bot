@@ -4,7 +4,7 @@ Initial Setup
 1. Clone the repository.
 2. Open a terminal. Run these commands inside the repository directory.
 ```
-composer install 	
+composer install
 ```
 ```
 composer require coderstephen/slack-client
