@@ -22,7 +22,15 @@ $client->on('message', function ($data) use ($client) {
     $client->getChannelGroupOrDMByID($data['channel'])->then(function ($channel) use ($client, $data) {
         
         
-        if ($data['text'] == "shuffle"){
+        if ($data['text'] == "shuffle" && 
+            (
+                $data['user']=="U9ZF62T2P" ||
+                $data['user']=="UA1LJL47Q" ||
+                $data['user']=="U9ZB324KE" ||
+                $data['user']=="UA1SZP8TH" ||
+                $data['user']=="UA1SWDZ39"
+            )
+           ){
             $a = ['Jovi',
                 'Reynaldo',
                 'Chester',
