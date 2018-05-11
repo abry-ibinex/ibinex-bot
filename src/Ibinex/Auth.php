@@ -14,7 +14,7 @@ class Auth {
 
 	public static function isAdmin($uid) {
 
-			echo "CHECK";
+
 		if(!in_array($uid, self::$admins))
 			return false;
 

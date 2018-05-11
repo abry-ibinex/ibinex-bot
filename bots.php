@@ -25,11 +25,15 @@ $client->on('message', function ($data) use ($client) {
         if(preg_match('/^<@UAMJYM153> (.*)/', $data['text'], $match)) {
 
             $command = new Ibinex\Command;
+
+            
             if($command->parseCommand($match[1], $data['user'])) {
 
-                $message = $command->run();
-
+                 $command->run();
+                
             }
+           
+            $message = $command->message;
 
         }
 
