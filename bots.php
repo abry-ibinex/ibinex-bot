@@ -62,7 +62,8 @@ $client->on('message', function ($data) use ($client) {
                 'Izza',
                 'Bryan',
                 'Eric',
-                'Dennis'];
+                'Dennis',
+                 'Ansell'];
 
             shuffle($a);
             $groupa = array_slice($a,0,11);
