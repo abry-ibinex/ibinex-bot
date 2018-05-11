@@ -19,13 +19,15 @@ $client->setToken($bot_key);
 $client->connect();
  
 $client->on('message', function ($data) use ($client) {
+    
+    // Runs if message text input is "shuffle" and if the user matches
     if ($data['text'] == "shuffle" && 
             (
-                $data['user']=="U9ZF62T2P" ||
-                $data['user']=="UA1LJL47Q" ||
-                $data['user']=="U9ZB324KE" ||
-                $data['user']=="UA1SZP8TH" ||
-                $data['user']=="UA1SWDZ39"
+                $data['user']=="U9ZF62T2P" || // Ace
+                $data['user']=="UA1LJL47Q" || // Ansell
+                $data['user']=="U9ZB324KE" || // Gab
+                $data['user']=="UA1SZP8TH" || //Jovi
+                $data['user']=="UA1SWDZ39" // Izza
             )
            ){
         
@@ -33,7 +35,7 @@ $client->on('message', function ($data) use ($client) {
         
         
         
-            $a = ['Jovi',
+            $players = ['Jovi',
                 'Reynaldo',
                 'Chester',
                 'Joshua',
@@ -67,33 +69,30 @@ $client->on('message', function ($data) use ($client) {
                 'Dennis',
                  'Ansell'];
 
-            shuffle($a);
-            $groupa = array_slice($a,0,11);
-            $groupb = array_slice($a,11,11);
-            $groupc = array_slice($a,22,11);
+            shuffle($players);
+            
+            $group_a = array_slice($players,0,11);
+            $group_b = array_slice($players,11,11);
+            $group_c = array_slice($players,22,11);
 
             $m = "Group A: \n";
 
-            foreach ($groupa as $v){
+            foreach ($group_a as $v){
                 $m .= "$v, ";
             }
-            
-            $m = rtrim($m,',');
             
             $m .= "\nGroup B: \n";
 
-            foreach ($groupb as $v){
-                $m .= "$v, ";
-            }
-            $m = rtrim($m,',');
-            $m .= "\nGroup C: \n";
-
-
-            foreach ($groupc as $v){
+            foreach ($group_b as $v){
                 $m .= "$v, ";
             }
             
-            $m = rtrim($m,',');
+            $m .= "\nGroup C: \n";
+
+
+            foreach ($group_c as $v){
+                $m .= "$v, ";
+            }
 
             $message = $client->getMessageBuilder()
                         ->setText($m)
