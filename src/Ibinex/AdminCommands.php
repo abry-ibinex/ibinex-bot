@@ -4,7 +4,7 @@ use Bot\Ibinex\Game;
 class AdminCommands {
 
 	private $accessLevel="user";
-
+   
 
 
 	public static function startgame(string $uid) {
