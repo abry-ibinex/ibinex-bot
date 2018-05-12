@@ -8,6 +8,7 @@ class Command {
 		'startgame'		=>	'admin',
 		'cancelgame'	=>	'admin',
 		'register'		=>	'user',
+		'unregister'	=> 	'user',
 
 
 	];
@@ -18,6 +19,7 @@ class Command {
 		'startgame'		=>	'AdminCommands',
 		'cancelgame'	=>	'AdminCommands',
 		'register'		=>	'UserCommands',
+		'unregister'	=>	'UserCommands',
 
 
 	];

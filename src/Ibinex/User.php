@@ -11,7 +11,7 @@ class User {
 	private $team;
 
 
-	public function __construct(string $uid, string $handle, int $team) {
+	public function __construct(string $uid, string $handle="", int $team=0) {
 		
 
 		$this->uid 		= $uid;
@@ -82,4 +82,23 @@ class User {
 		return true;
 
 	}
+
+	public function unjoin() {
+		
+		$collection = (new MongoDB)->{$this->database}->user;
+		
+		$result = $collection->updateOne(
+
+		    ['uid' => $this->uid, 'joined' => true],
+		    ['$set' => ['joined' => false]]
+
+		);
+		
+		if($result->getMatchedCount() == 0)
+			return false;
+		
+		return true;
+
+	}
+
 }

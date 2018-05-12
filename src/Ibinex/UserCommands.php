@@ -23,9 +23,24 @@ class UserCommands {
 		}
 	}
 
-	
 
 
+
+	public static function unregister($uid) {
+		
+		$game = new Game($uid);
+
+		if(!$game->isOngoing()) {
+
+			return "There are no CodingGame sessions right now.";
+
+		}
+		elseif($game->unregister()) {
+			
+			return '<@'. $uid . "> is fucking scared and left the game.";
+
+		}
+	}
 
 }
 

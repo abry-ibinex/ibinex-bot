@@ -112,6 +112,18 @@ class Game {
 	}
 
 
+	public function unregister() {
+
+		$user = new User($this->uid);
+
+		if(!$user->unjoin())
+			return false;
+
+		return true;
+
+	}
+
+
 
 }
 
