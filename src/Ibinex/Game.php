@@ -1,6 +1,7 @@
 <?php
 namespace Bot\Ibinex;
 use MongoDB\Client AS MongoDB;
+use Bot\Ibinex\User;
 
 class Game {
 
@@ -11,7 +12,7 @@ class Game {
 	private $timestamp;
 	private $uid;
 
-	public function __construct($uid) {
+	public function __construct($uid = null) {
 		
 		$this->uid = $uid;
 
@@ -54,6 +55,20 @@ class Game {
 	}
 
 
+	public function isOngoing() {
+
+		$collection = (new MongoDB)->{$this->database}->game;
+
+
+		//Check if a game is open (started=true)
+		if(!$collection->findOne(['started' => true])) 
+
+			return false;
+
+		return true; 
+		
+
+	}
 
 
 	public function cancel() {
@@ -71,6 +86,30 @@ class Game {
 		return false;
 
 	}	
+
+
+
+
+	public function register(string $handle, int $team) {
+		
+
+		$user = new User($this->uid, $handle, $team);
+		
+		if(!$user->find()) {
+			
+			if(!$user->add())
+				return false;
+
+		} else {
+			
+			if(!$user->join())
+				return false;
+		}
+		
+		return true;
+
+
+	}
 
 
 
