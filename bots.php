@@ -34,6 +34,21 @@ $client->on('message', function ($data) use ($client) {
            
             $message = $command->message;
 
+        } elseif(preg_match('/^<@UAMJYM153>$/', $data['text'], $match)) {
+
+             $command = new Bot\Ibinex\Command;
+
+
+             $message = "Hello. Im Ibinex bot. :smile: \n\n";
+             $message .= "*Commands*\n";
+             $message .= "```";
+             foreach($command->commands AS $key => $command) {
+
+                $message .= "" .$key ." (". $command .")\n";
+
+             } 
+             $message .= "```";
+
         }
 
 

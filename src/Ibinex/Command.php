@@ -3,7 +3,7 @@ namespace Bot\Ibinex;
 use Bot\Ibinex\Auth;
 class Command {
 
-	private $commands = [
+	public $commands = [
 
 		'startgame'		=>	'admin',
 		'cancelgame'	=>	'admin',
