@@ -10,12 +10,13 @@ error_reporting(E_ALL);
  */
 
 require_once('vendor/autoload.php');
-include('core.php');
+require_once('key.php');
+require_once('core.php');
  
 $loop = React\EventLoop\Factory::create();
  
 $client = new Slack\RealTimeClient($loop);
-$client->setToken('xoxb-361644715173-GfGCbugLKI73r3PJw0JM4c2L');
+$client->setToken($bot_key);
 $client->connect();
  
 $client->on('message', function ($data) use ($client) {
