@@ -11,6 +11,7 @@ class Game {
 	protected $ongoing 		= false;
 	private $timestamp;
 	private $uid;
+	public $playercount;
 
 	public function __construct($uid = null) {
 		
@@ -124,6 +125,19 @@ class Game {
 	}
 
 
+	public function players() {
+
+		$collection = (new MongoDB)->{$this->database}->user;
+
+		$players = $collection->find(['joined' => true]);
+
+		foreach($players AS $player)
+			$p[] = '<@' . $player['uid'] .'>';
+
+		return $p;
+
+
+	}
 
 }
 

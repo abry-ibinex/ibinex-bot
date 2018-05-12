@@ -17,8 +17,10 @@ class UserCommands {
 
 		}
 		elseif($game->register($handle, $team)) {
+
+			$result = $game->players();
 			
-			return '<@'. $uid . "> joined the game!";
+			return '<@'. $uid . "> joined the game! (there are *". count($result) ."* players in the game: ".implode(", ", $result).")";
 
 		}
 	}
