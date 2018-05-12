@@ -11,8 +11,7 @@ error_reporting(E_ALL);
 
 require_once('vendor/autoload.php');
 require_once('key.php');
-require_once('core.php');
- 
+
 $loop = React\EventLoop\Factory::create();
  
 $client = new Slack\RealTimeClient($loop);
@@ -24,10 +23,9 @@ $client->on('message', function ($data) use ($client) {
        
        
         if(preg_match('/^<@UAMJYM153> (.*)/', $data['text'], $match)) {
-
-            $command = new Ibinex\Command;
-
-            
+      
+            $command = new Bot\Ibinex\Command;
+        
             if($command->parseCommand($match[1], $data['user'])) {
 
                  $command->run();

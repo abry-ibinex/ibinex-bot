@@ -1,5 +1,5 @@
 <?php
-namespace Ibinex;
+namespace Bot\Ibinex;
 class Auth {
 
 	private static $admins = [

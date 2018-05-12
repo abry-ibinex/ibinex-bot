@@ -1,12 +1,12 @@
 <?php
-namespace Ibinex;
-use Ibinex\Auth;
+namespace Bot\Ibinex;
+use Bot\Ibinex\Auth;
 class Command {
 
 	private $commands = [
 
 		'startgame'		=>	'admin',
-		'endgame'		=>	'admin',
+		'cancelgame'	=>	'admin',
 		'mystats'		=>	'user',
 
 
@@ -16,15 +16,15 @@ class Command {
 	private $commands_map = [
 
 		'startgame'		=>	'AdminCommands',
-		'endgame'		=>	'AdminCommands',
+		'cancelgame'	=>	'AdminCommands',
 
 
 	];
 
 	private $commandType="user";
-	private $command="";
-	public $message="";
-	private $uid="";
+	private $command;
+	public $message;
+	private $uid;
 	private $parameters=[];
 
 	public function parseCommand($command, $uid) {
@@ -34,7 +34,7 @@ class Command {
 		$maincommand = $params[0];
 			
 		if(!array_key_exists($maincommand, $this->commands)) {
-			
+		
 			$this->message="*Error*: Invalid command.";
 			return false;
 
@@ -47,7 +47,6 @@ class Command {
 				$this->message="*Error*: Unathorized access.";
 				return false;
 			}
-
 		} 
 
 
@@ -57,7 +56,6 @@ class Command {
 		$this->parameters = $params;
 		array_shift($this->parameters);		
 		$this->parameters['uid'] = $uid;
-
 
 		return true;
 		
@@ -73,10 +71,10 @@ class Command {
 		
 
 
+	
+		if(method_exists('Bot\\Ibinex\\'. $this->commands_map[$this->command],  $this->command)) {
 
-		if(method_exists('Ibinex\Commands\\'. $this->commands_map[$this->command],  $this->command)) {
-
-			$this->message = forward_static_call_array('Ibinex\Commands\\'. $this->commands_map[$this->command] . '::'. $this->command, $this->parameters);
+			$this->message = forward_static_call_array('Bot\\Ibinex\\'. $this->commands_map[$this->command] . '::'. $this->command, $this->parameters);
 			return true;
 
 		} else {
