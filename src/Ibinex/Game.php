@@ -80,7 +80,13 @@ class Game {
 		
 		if($result->getDeletedCount() > 0) {
 			
+
+			//remove all players who joined
+
+			$user = new User($this->uid);
+			$user->resetjoined();
 			return true;
+
 		
 		}
 

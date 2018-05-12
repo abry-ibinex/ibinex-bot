@@ -101,4 +101,18 @@ class User {
 
 	}
 
+
+
+	public function resetjoined() {
+
+
+		$collection = (new MongoDB)->{$this->database}->user;
+		$result = $collection->updateMany(
+		    ['joined' => true],
+		    ['$set' => ['joined' => false]]
+		);
+
+
+	}
+
 }
