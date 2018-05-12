@@ -38,7 +38,24 @@ class AdminCommands {
 		}
 	}
 	
+	public static function testclash($uid) {
 
+		$game = new Game($uid);
+		$clash = $game->testclash();
+
+
+		if(!$clash) 
+			return "*Error*: Cannot start a test clash.";
+
+		else 
+			
+			return "*Private clash generated!* https://www.codingame.com/clashofcode/clash/". $clash['success']['publicHandle'];
+
+		
+
+		
+
+	}
 
 
 }
