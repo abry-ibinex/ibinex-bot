@@ -75,12 +75,12 @@ class Command {
 		if(method_exists('Bot\\Ibinex\\'. $this->commands_map[$this->command],  $this->command)) {
 
 			$this->message = forward_static_call_array('Bot\\Ibinex\\'. $this->commands_map[$this->command] . '::'. $this->command, $this->parameters);
-			return true;
-
+			
+		
 		} else {
 
 			$this->message="*Error*: Invalid command.";
-			return false;
+			
 		}
 
 

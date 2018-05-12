@@ -1,54 +1,40 @@
 <?php
 namespace Bot\Ibinex;
-use MongoDB\Client AS MongoDB;
+//use MongoDB\Client AS MongoDB;
+use Bot\Ibinex\GameInstance;
 
 class Game {
 
-	private $database		= "test";
 	public $game_id			= null;
 	private $contestants 	= [];
 	protected $ongoing 		= false;
 	private $timestamp;
 	private $uid;
 
-	public function __construct($uid) {
+	public function __construct(string $uid) {
 		
 		$this->uid = $uid;
 
 	}
 	
+	public function test() {
 
+		return true;
+	}
 	
-	public function create(): boolean {
+	public function create() {
 
-		$collection = (new MongoDB)->{$this->database}->game;
+		echo "O";
+		if(GameInstance::$started) {
+			echo "X";
+			return false;
 
-
-		//Check if a game is open (started=true)
-		if(!$collection->findOne(['started' => true])) {
-
-			$result = $collection->insertOne([
-
-			    'started' 	=> true,
-			    'by' 		=> $this->uid,
-			    'timestamp' => ($started=time())
-
-
-			]);
-
-			$this->game_id = $result->getInsertedId();
-			$this->ongoing = true;
-			$this->timestamp=$started;
-			
+		} else {	
+		
+			GameInstance::GetInstance($this->uid);
 			return true;
 
 		}
-
-
-		return false;
-
-
-
 
 
 	}
@@ -56,20 +42,17 @@ class Game {
 
 
 
-	public function cancel(): boolean {
+	public function cancel() {
 
-		$collection = (new MongoDB)->{$this->database}->game;
-		
-		$result = $collection->deleteOne(['started' => true]);
-		
-		if($result->getDeletedCount() > 0) {
-			
+		if(!GameInstance::$started) {
+
+			return false;
+
+		} else {
+
+			GameInstance::$instance = null;
 			return true;
-		
 		}
-
-		return false;
-
 	}	
 
 

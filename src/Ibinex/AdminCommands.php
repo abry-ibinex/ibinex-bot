@@ -7,35 +7,33 @@ class AdminCommands {
 
 
 
-	public static function startgame($uid) {
+	public static function startgame(string $uid) {
 		
 		$game = new Game($uid);
-		var_dump($game);
-		var_dump($game->create());
-		var_dump($game);
-		if(!$game->create()) {
 
+		if(!$game->create()) {
+			
 			return "Cannot start a new session. A game is currently ongoing. Type `@Ibinex Bot cancelgame` to cancel.";
 
-		} else { 
-
-			return "<!everyone>, New CodingGame session started by <@". $game->uid . ">. Registration is open for 10mins. type `@Ibinex Bot register` to join.";
+		} else {
+			
+			return "<!everyone>, New CodingGame session started by <@". $uid . ">. Registration is open for 10mins. type `@Ibinex Bot register` to join.";
 
 		}
 	}
 	
 
-	public static function cancelgame($uid) {
+	public static function cancelgame(string $uid) {
 		
 		$game = new Game($uid);
-
+	
 		if(!$game->cancel()) {
-
+			
 			return "There is no on-going CodingGame session.";
 
 		} else { 
 
-			return "<!everyone>,CodingGame session cancelled by <@". $game->uid . ">.";
+			return "<!everyone>, CodingGame session cancelled by <@". $uid . ">.";
 
 		}
 	}
