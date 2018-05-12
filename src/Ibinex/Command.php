@@ -25,7 +25,7 @@ class Command {
 	private $command="";
 	public $message="";
 	private $uid="";
-	public $parameters=[];
+	private $parameters=[];
 
 	public function parseCommand($command, $uid) {
 
