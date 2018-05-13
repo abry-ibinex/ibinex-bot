@@ -44,7 +44,7 @@ class AdminCommands {
 	public static function testclash($uid) {
 
 		$game = new Game($uid);
-		$clash = $game->testclash();
+		$clash = $game->generateclash();
 
 
 		if(!$clash) 
@@ -52,7 +52,7 @@ class AdminCommands {
 
 		else 
 			
-			return "*Private clash generated!* https://www.codingame.com/clashofcode/clash/". $clash['success']['publicHandle'];
+			return "*Private clash generated!* https://www.codingame.com/clashofcode/clash/". $clash[0];
 
 		
 
@@ -119,12 +119,16 @@ class AdminCommands {
 
 		$msg = "";
 		$room_id = 1;
+
+		$rooms = $game->generateclash(count($players));
+
+
 		foreach($players AS $player) {
-			$room = $game->testclash();	// Initiates a new codingame room.
+				// Initiates a new codingame room.
 
 			$msg  .= "*Room #". $room_id ."*\n";
 			$msg .= "```";
-			$msg .= "Room: https://www.codingame.com/clashofcode/clash/". $room['success']['publicHandle']."\n\n";
+			$msg .= "Room: https://www.codingame.com/clashofcode/clash/". $rooms[$room_id-1]."\n\n";
 			foreach($player AS $handle => $p) {
 			
 				$msg .= '<@' . $p['uid'] .'>' . " - ". $p['handle'] . " from Team " . $p['team'] ."\n";
