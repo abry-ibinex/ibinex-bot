@@ -12,6 +12,7 @@ error_reporting(E_ALL);
 
 $UPTIME = time();
 $BOT_VERSION = 0;
+$MIN_PLAYERS = 2;
 /* VERSION MAJOR.MINOR.PATCH */
 
 

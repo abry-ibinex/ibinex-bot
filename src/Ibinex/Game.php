@@ -147,6 +147,58 @@ class Game {
 	}
 
 
+	public function shufflegame() {
+
+		global $MIN_PLAYERS;
+
+		//Fetch all players who joined the game
+		$p = [];
+		$collection = (new MongoDB)->{$this->database}->user;
+
+		$players = $collection->find(['joined' => true]);
+
+		//assign it into an array $[codinggameusername] = slackusername;
+
+		foreach($players AS $player)
+		{
+
+			$p[$player->handle] = '<@' . $player->uid .'>';
+		}
+
+		$players = $p;
+
+
+
+
+		if(count($players) < $MIN_PLAYERS)
+			return false;
+
+		if(!$this->isOngoing())
+			return false;
+
+
+		//shuffle players and maintains key assoc
+		$keys = array_keys($players);
+
+        shuffle($keys);
+
+        foreach($keys as $key) {
+            $new[$key] = $players[$key];
+        }
+
+        $players = $new;
+
+		// how many rooms needed 
+		$rooms = ceil(count($players)/8);
+
+		//split into 8 person per clash
+		return array_chunk($players, 8, true);
+
+		
+
+	}
+
+
 
 	public function testclash() {
 

@@ -104,6 +104,42 @@ class AdminCommands {
 	}
 
 
+	public static function shufflegame($uid) {
+
+		$game = new Game($uid);
+		$players = $game->shufflegame();
+
+		if(!$players)
+				return "Cannot shuffle players. (Not enough players or no games started).";
+
+		
+
+		//generate rooms
+		//players
+
+		$msg = "*GAME IS STARTING!*\n\n";
+
+		foreach($players AS $player) {
+
+			$room = $game->testclash();
+			$msg .= "```";
+
+			$msg .= "Room: https://www.codingame.com/clashofcode/clash/". $room['success']['publicHandle']."\n\n";
+			foreach($player AS $handle => $slack_uid) {
+			
+				$msg .= $slack_uid . " - ". $handle ."\n";
+			}
+
+			$msg .= "```";
+
+		}
+
+
+		return $msg;
+
+
+	}
+
 }
 
 

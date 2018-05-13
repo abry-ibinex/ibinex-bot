@@ -10,6 +10,7 @@ class Command {
 		'testclash'		=>	'admin',
 		'listplayers'	=>	'admin',
 		'sysinfo'		=>	'admin',
+		'shufflegame'	=>	'admin',
 		'register'		=>	'user',
 		'unregister'	=> 	'user',
 
@@ -24,6 +25,7 @@ class Command {
 		'testclash'		=>	'AdminCommands',
 		'listplayers'	=>	'AdminCommands',
 		'sysinfo'		=>	'AdminCommands',
+		'shufflegame'	=>	'AdminCommands',
 		'register'		=>	'UserCommands',
 		'unregister'	=>	'UserCommands',
 
