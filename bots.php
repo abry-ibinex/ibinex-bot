@@ -1,6 +1,5 @@
 <?php
 error_reporting(E_ALL);
-$UPTIME = time();
 /**
  * App Name: iBinex Slack Bot
  * Description: Description of the plugin.
@@ -9,6 +8,14 @@ $UPTIME = time();
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
+
+
+$UPTIME = time();
+$BOT_VERSION = 0;
+/* VERSION MAJOR.MINOR.PATCH */
+
+
+
 
 require_once('vendor/autoload.php');
 require_once('key.php');

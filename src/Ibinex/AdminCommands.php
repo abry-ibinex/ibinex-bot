@@ -83,12 +83,13 @@ class AdminCommands {
 	public static function sysinfo($uid) {
 
 		global $UPTIME;
+		global $BOT_VERSION;
 		$duration = new DUration(time() - $UPTIME);
 
 	    exec('git describe --always',$version_mini_hash);
 	    exec('git rev-list HEAD | wc -l',$version_number);
 	    exec('git log -1',$line);
-	    $version = "v1.".trim($version_number[0]).".".$version_mini_hash[0];
+	    $version = "v".$BOT_VERSION.".".trim($version_number[0]).".".$version_mini_hash[0];
 	    
 
 
