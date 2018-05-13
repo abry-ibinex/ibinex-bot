@@ -35,7 +35,18 @@ class BotAccounts {
 
 		$clashes = [];
 		$counter = 1;
-		shuffle($this->bots);
+
+  		$keys = array_keys($this->bots);
+
+        shuffle($keys);
+
+        foreach($keys as $key) {
+            $new[$key] = $this->bots[$key];
+        }
+
+        $this->bots = $new;
+
+
 		foreach($this->bots AS $id => $cookie) {
 
 			
