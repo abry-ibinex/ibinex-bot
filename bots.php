@@ -13,6 +13,8 @@ error_reporting(E_ALL);
 $UPTIME = time();
 $BOT_VERSION = 0;
 $MIN_PLAYERS = 2;
+$PLAYERS_PER_ROOM = 1;
+
 /* VERSION MAJOR.MINOR.PATCH */
 
 

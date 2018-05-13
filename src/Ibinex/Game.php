@@ -150,6 +150,8 @@ class Game {
 	public function shufflegame() {
 
 		global $MIN_PLAYERS;
+		global $PLAYERS_PER_ROOM;
+
 
 		//Fetch all players who joined the game
 		$p = [];
@@ -188,11 +190,9 @@ class Game {
 
         $players = $new;
 
-		// how many rooms needed 
-		$rooms = ceil(count($players)/8);
 
 		//split into 8 person per clash
-		return array_chunk($players, 8, true);
+		return array_chunk($players, $PLAYERS_PER_ROOM, true);
 
 		
 
