@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 
 $UPTIME = time();
 $BOT_VERSION = 0;
-$MIN_PLAYERS = 1;
+$MIN_PLAYERS = 5;
 $MAX_PLAYERS_PER_ROOM = 11;
 $TOTAL_TEAMS = 4;
 
