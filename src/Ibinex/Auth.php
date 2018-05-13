@@ -9,7 +9,7 @@ class Auth {
 		'UA1LJL47Q', // ansell
 		'U9ZB324KE', // gab
 		'UA1SZP8TH', // jovi
-		'UA1SWDZ39' // izza
+		'UA1SWDZ39', // izza
 
 		/* iBinex Bot Developers */
 		'UA09CQS0H' // abry
