@@ -11,6 +11,7 @@ class UserCommands {
 	public static function register(string $handle, int $team, string $uid) {
 		
 		$game = new Game($uid);
+		
 		if(!$game->isOngoing()) {
 
 			return "There are no CodingGame sessions right now.";

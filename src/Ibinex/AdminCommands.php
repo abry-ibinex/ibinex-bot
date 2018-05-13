@@ -1,6 +1,9 @@
 <?php
 namespace Bot\Ibinex;
 use Bot\Ibinex\Game;
+use Bot\Ibinex\User;
+
+
 class AdminCommands {
 
 	private $accessLevel="user";
@@ -55,6 +58,25 @@ class AdminCommands {
 
 		
 
+	}
+
+
+	public static function listplayers($uid) {
+
+		$game = new Game($uid);
+
+		if(!$game->isOngoing())
+			return "There are no on-going CodingGame sessions.";
+
+
+		$result = $game->players();
+	
+		if(empty($result))
+			return "There are no players in the game right now.";
+
+
+		else
+			return "there are *". count($result) ."* players in the game: ".implode(", ", $result);
 	}
 
 

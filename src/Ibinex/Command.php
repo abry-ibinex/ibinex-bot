@@ -8,6 +8,7 @@ class Command {
 		'startgame'		=>	'admin',
 		'cancelgame'	=>	'admin',
 		'testclash'		=>	'admin',
+		'listplayers'	=>	'admin',
 		'register'		=>	'user',
 		'unregister'	=> 	'user',
 
@@ -20,6 +21,7 @@ class Command {
 		'startgame'		=>	'AdminCommands',
 		'cancelgame'	=>	'AdminCommands',
 		'testclash'		=>	'AdminCommands',
+		'listplayers'	=>	'AdminCommands',
 		'register'		=>	'UserCommands',
 		'unregister'	=>	'UserCommands',
 

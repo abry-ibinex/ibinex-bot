@@ -133,6 +133,7 @@ class Game {
 
 	public function players() {
 
+		$p = [];
 		$collection = (new MongoDB)->{$this->database}->user;
 
 		$players = $collection->find(['joined' => true]);
