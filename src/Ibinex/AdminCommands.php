@@ -117,20 +117,21 @@ class AdminCommands {
 		//generate rooms
 		//players
 
-		$msg = "*GAME IS STARTING!*\n\n";
-
+		$msg = "";
+		$r = 1;
 		foreach($players AS $player) {
-
 			$room = $game->testclash();
-			$msg .= "```";
 
+			$msg  .= "*Room #". $r ."*\n";
+			$msg .= "```";
 			$msg .= "Room: https://www.codingame.com/clashofcode/clash/". $room['success']['publicHandle']."\n\n";
 			foreach($player AS $handle => $slack_uid) {
 			
 				$msg .= $slack_uid . " - ". $handle ."\n";
 			}
 
-			$msg .= "```";
+			$msg .= "```\n\n";
+			$r++;
 
 		}
 
