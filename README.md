@@ -29,22 +29,22 @@ php bots.php
 
 1. Admin Module
   - Admin commands
-    + /startgame 
-    + /cancelgame 
+    + /startgame DONE
+    + /cancelgame DONE
     +
     +
     
 2. User Module
   - User commands
-    + /register name team ###/regster Ansell 1  (Ricky)  
+    + /register name team DONE
     + /checkstandings
-    + /unregister
-    +
+    + /unregister DONE
+    + /register DONE
     +
     
     
 3. Bot Module
-    + create game (Ansell)
-    + shuffle
+    + create game DONE
+    + shuffle DONE
     + scoring
     
