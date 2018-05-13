@@ -2,7 +2,7 @@
 namespace Bot\Ibinex;
 use Bot\Ibinex\Game;
 use Bot\Ibinex\User;
-
+use Khill\Duration\Duration;
 
 class AdminCommands {
 
@@ -77,6 +77,28 @@ class AdminCommands {
 
 		else
 			return "there are *". count($result) ."* players in the game: ".implode(", ", $result);
+	}
+
+
+	public static function sysinfo($uid) {
+
+		global $UPTIME;
+		$duration = new DUration(time() - $UPTIME);
+
+	    exec('git describe --always',$version_mini_hash);
+	    exec('git rev-list HEAD | wc -l',$version_number);
+	    exec('git log -1',$line);
+	    $version = "v1.".trim($version_number[0]).".".$version_mini_hash[0];
+	    
+
+
+		$msg = "*Bot Uptime:* ".$duration->humanize(). "\n";
+		$msg .= "*Up Since:* <!date^". $UPTIME ."^{date_long} {time_secs}|". date("F j, Y g:i:s a") .">\n";
+		$msg .= "*Git Revision:* ".$version;
+
+
+		return $msg;
+
 	}
 
 

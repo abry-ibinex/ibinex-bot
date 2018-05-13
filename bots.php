@@ -1,5 +1,6 @@
 <?php
 error_reporting(E_ALL);
+$UPTIME = time();
 /**
  * App Name: iBinex Slack Bot
  * Description: Description of the plugin.
