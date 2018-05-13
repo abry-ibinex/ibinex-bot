@@ -118,20 +118,20 @@ class AdminCommands {
 		//players
 
 		$msg = "";
-		$r = 1;
+		$room_id = 1;
 		foreach($players AS $player) {
-			$room = $game->testclash();
+			$room = $game->testclash();	// Initiates a new codingame room.
 
-			$msg  .= "*Room #". $r ."*\n";
+			$msg  .= "*Room #". $room_id ."*\n";
 			$msg .= "```";
 			$msg .= "Room: https://www.codingame.com/clashofcode/clash/". $room['success']['publicHandle']."\n\n";
-			foreach($player AS $handle => $slack_uid) {
+			foreach($player AS $handle => $p) {
 			
-				$msg .= $slack_uid . " - ". $handle ."\n";
+				$msg .= '<@' . $p['uid'] .'>' . " - ". $p['handle'] . " from Team " . $p['team'] ."\n";
 			}
 
 			$msg .= "```\n\n";
-			$r++;
+			$room_id++;
 
 		}
 

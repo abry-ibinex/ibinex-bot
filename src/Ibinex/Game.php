@@ -149,52 +149,76 @@ class Game {
 
 	public function shufflegame() {
 
+		/* Import global variables */
 		global $MIN_PLAYERS;
-		global $PLAYERS_PER_ROOM;
+		global $MAX_PLAYERS_PER_ROOM;
+		global $TOTAL_TEAMS;
 
+		$collection = (new MongoDB)->{$this->database}->user; // Fetches collection data from the user table
 
-		//Fetch all players who joined the game
-		$p = [];
-		$collection = (new MongoDB)->{$this->database}->user;
+		$total_players = 0; // Initiates the total number of players registered.
 
-		$players = $collection->find(['joined' => true]);
+		$team_players = []; // Initiates the array to hold all players per team.
 
-		//assign it into an array $[codinggameusername] = slackusername;
+		for ($i=0;$i<$TOTAL_TEAMS;$i++){
 
-		foreach($players AS $player)
-		{
+			$team_players[$i] = iterator_to_array($collection->find([
+				'joined' => true,	// If the player has joined the game.
+				'team'	=> ($i+1)	// If the player is a member of the current team.
+			]));
 
-			$p[$player->handle] = '<@' . $player->uid .'>';
+			$total_players += count(($team_players[$i])); 
+			// Counts the number of result of the current team and adds it to the total number of players.
 		}
 
-		$players = $p;
+		$team_players = array_filter($team_players); // Removes all empty elements
+		$total_teams_joined = count($team_players);
 
-
-
-
-		if(count($players) < $MIN_PLAYERS)
+		if(
+			$total_players < $MIN_PLAYERS ||	// Total registered players does not meet the minimum players required
+			!$this->isOngoing()	// No ongoing games
+		)
 			return false;
 
-		if(!$this->isOngoing())
-			return false;
+
+		// Computes the total rooms to allocate the amount of registered players based on the max players per room.
+		$total_rooms = ceil($total_players/$MAX_PLAYERS_PER_ROOM);
+
+		// Computes how many players per room evenly depending on how much players have registered and how much rooms to take.
+		$total_players_per_room = ceil($total_players/$total_rooms);
 
 
-		//shuffle players and maintains key assoc
-		$keys = array_keys($players);
+		$current_team_index = 0; // Starts from the first team.
 
-        shuffle($keys);
+		$players = []; // Array handler of all the players.
 
-        foreach($keys as $key) {
-            $new[$key] = $players[$key];
-        }
+		// Runs while there is still a player unassigned from the teams
+		while ($total_players>0){
 
-        $players = $new;
+			// If team index goes over the total number of teams, sets it back to 0
+			if ($current_team_index==$TOTAL_TEAMS)
+				$current_team_index = 0;
 
+			// If the current team still has a player unassigned
+			if (isset($team_players[$current_team_index]))
+			{
+				// Shuffles the players inside the team to give a random distribution to rooms.
+				shuffle($team_players[$current_team_index]);
 
-		//split into 8 person per clash
-		return array_chunk($players, $PLAYERS_PER_ROOM, true);
+				// Assigns a random player from a team
+				$players[] = array_pop($team_players[$current_team_index]);
 
-		
+				// Total players left to be assigned has been decreased by 1.
+				$total_players--;
+			}
+
+			// Goes to the next team to check for unassigned players.
+			// This gives the shuffle an even distribution of team players to rooms.
+			$current_team_index++;
+		}
+
+		// Splits players evenly to rooms
+		return array_chunk($players, $total_players_per_room, true);
 
 	}
 
