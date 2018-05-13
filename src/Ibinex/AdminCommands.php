@@ -95,6 +95,7 @@ class AdminCommands {
 
 		$msg = "*Bot Uptime:* ".$duration->humanize(). "\n";
 		$msg .= "*Up Since:* <!date^". $UPTIME ."^{date_long} {time_secs}|". date("F j, Y g:i:s a") .">\n";
+		$msg .= "*Server Info*: ".php_uname()."\n";
 		$msg .= "*Git Revision:* ".$version;
 
 
