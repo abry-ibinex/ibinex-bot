@@ -4,11 +4,15 @@ class Auth {
 
 	private static $admins = [
 
-		'U9ZF62T2P', //ace
-		'UA1LJL47Q', //ansell
-		'U9ZB324KE', //gab
-		'UA1SZP8TH', //jovi
+		/* Team Leaders */
+		'U9ZF62T2P', // ace
+		'UA1LJL47Q', // ansell
+		'U9ZB324KE', // gab
+		'UA1SZP8TH', // jovi
 		'UA1SWDZ39' // izza
+
+		/* iBinex Bot Developers */
+		'UA09CQS0H' // abry
 
 	];
 
