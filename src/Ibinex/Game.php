@@ -173,7 +173,7 @@ class Game {
 			// Counts the number of result of the current team and adds it to the total number of players.
 		}
 
-		$team_players = array_filter($team_players); // Removes all empty elements
+		$team_players = $team_players; // Removes all empty elements
 		$total_teams_joined = count($team_players);
 
 		if(
