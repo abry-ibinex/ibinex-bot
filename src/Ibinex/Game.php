@@ -173,7 +173,7 @@ class Game {
 			// Counts the number of result of the current team and adds it to the total number of players.
 		}
 
-		$team_players = $team_players; // Removes all empty elements
+		$team_players = array_filter($team_players); // Removes all empty elements
 		$total_teams_joined = count($team_players);
 
 		if(
@@ -198,7 +198,7 @@ class Game {
 		while ($total_players>0){
 
 			// If team index goes over the total number of teams, sets it back to 0
-			if ($current_team_index==$TOTAL_TEAMS)
+			if ($current_team_index>$TOTAL_TEAMS)
 				$current_team_index = 0;
 
 			// If the current team still has a player unassigned
