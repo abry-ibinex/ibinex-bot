@@ -175,7 +175,7 @@ class Game {
 
 		$team_players = array_filter($team_players); // Removes all empty elements
 		$total_teams_joined = count($team_players);
-
+        
 		if(
 			$total_players < $MIN_PLAYERS ||	// Total registered players does not meet the minimum players required
 			!$this->isOngoing()	// No ongoing games
@@ -193,7 +193,7 @@ class Game {
 		$current_team_index = 0; // Starts from the first team.
 
 		$players = []; // Array handler of all the players.
-
+        
 		// Runs while there is still a player unassigned from the teams
 		while ($total_players>0){
 
@@ -202,13 +202,13 @@ class Game {
 				$current_team_index = 0;
 
 			// If the current team still has a player unassigned
-			if (count($team_players[$current_team_index])>0)
+			if (isset($team_players[$current_team_index]) && count($team_players[$current_team_index])>0)
 			{
 				// Shuffles the players inside the team to give a random distribution to rooms.
 				shuffle($team_players[$current_team_index]);
 
 				// Assigns a random player from a team
-				$players[] = array_pop($team_players[$current_team_index]);
+				$players[] = array_shift($team_players[$current_team_index]);
 
 				// Total players left to be assigned has been decreased by 1.
 				$total_players--;
@@ -218,7 +218,7 @@ class Game {
 			// This gives the shuffle an even distribution of team players to rooms.
 			$current_team_index++;
 		}
-
+        
 		// Splits players evenly to rooms
 		return array_chunk($players, $total_players_per_room, true);
 

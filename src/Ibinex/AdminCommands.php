@@ -129,7 +129,7 @@ class AdminCommands {
 			$msg  .= "*Room #". $room_id ."*\n";
 			$msg .= "```";
 			$msg .= "Room: https://www.codingame.com/clashofcode/clash/". $rooms[$room_id-1]."\n\n";
-			foreach($player AS $handle => $p) {
+			foreach($player AS $p) {
 			
 				$msg .= '<@' . $p['uid'] .'>' . " - ". $p['handle'] . " from Team " . $p['team'] ."\n";
 			}
