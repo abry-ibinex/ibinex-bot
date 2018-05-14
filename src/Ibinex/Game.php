@@ -198,11 +198,11 @@ class Game {
 		while ($total_players>0){
 
 			// If team index goes over the total number of teams, sets it back to 0
-			if ($current_team_index>$TOTAL_TEAMS)
+			if ($current_team_index==$TOTAL_TEAMS)
 				$current_team_index = 0;
 
 			// If the current team still has a player unassigned
-			if (isset($team_players[$current_team_index]))
+			if (count($team_players[$current_team_index])>0)
 			{
 				// Shuffles the players inside the team to give a random distribution to rooms.
 				shuffle($team_players[$current_team_index]);
