@@ -11,6 +11,7 @@ class Command {
 		'listplayers'	=>	'admin',
 		'sysinfo'		=>	'admin',
 		'shufflegame'	=>	'admin',
+		'endclash'		=>	'admin',
 		'register'		=>	'user',
 		'unregister'	=> 	'user',
 
@@ -26,6 +27,7 @@ class Command {
 		'listplayers'	=>	'AdminCommands',
 		'sysinfo'		=>	'AdminCommands',
 		'shufflegame'	=>	'AdminCommands',
+		'endclash'		=>	'AdminCommands',
 		'register'		=>	'UserCommands',
 		'unregister'	=>	'UserCommands',
 

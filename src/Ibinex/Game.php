@@ -230,8 +230,20 @@ class Game {
 
 
 		$bots = new BotAccounts;
+		$urls = $bots->deploy($room_count);
+		$collection = (new MongoDB)->{$this->database}->clash;
+		foreach($urls AS $url) {
+			$collection->insertOne([
+				'url'	=> $url,
+				'timestamp'	=> time(),
+				'finished'	=> false
+
+			]);
 		
-		return $bots->deploy($room_count);
+		}
+
+
+		return $urls;
 
 	}
 
