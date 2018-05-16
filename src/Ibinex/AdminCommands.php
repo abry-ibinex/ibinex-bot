@@ -20,7 +20,7 @@ class AdminCommands {
 
 		} else {
 			
-			return "<!everyone>, New CodingGame session started by <@". $uid . ">. Registration is open for 10mins. type `@Ibinex Bot register CODING_GAME_USERNAME TEAM_NUMBER` to join. Example: `@Ibinex Bot register AnsellC 1`";
+			return "<!everyone>, New CodingGame session started by <@". $uid . ">. Registration is open for 10mins. type `@Ibinex Bot register CODING_GAME_USERNAME TEAM_NUMBER` to join. Example: `@Ibinex Bot register AnsellC 1`\n*Important: Enter your codinggame username exactly as it is or NO POINTS.*";
 
 		}
 	}
