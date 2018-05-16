@@ -145,6 +145,64 @@ class AdminCommands {
 
 	}
 
+
+
+	public static function endclash($uid) {
+
+		$game = new Game($uid);
+		
+
+		if(!$game->isOngoing())
+			return "There are no on-going CodingGame sessions.";
+
+		$result = $game->endclash();
+
+		if(!$result)
+			return "There are no clashes at the moment.";
+
+		$i=1;
+		$msg = "";
+
+		foreach($result AS $clash) {
+
+			if($clash['status'] == "Valid") {
+
+			$msg .= "*Clash #".$i." Report*\n";
+			$msg .= "```";
+			$msg .= "Clash URL: https://www.codingame.com/clashofcode/clash/report/".$clash['clash_url']."\n";
+			$msg .= "Clash Mode: ".$clash['mode']."\n";
+			$msg .= "------------------------------------------------------------------------------------\n\n";
+			$place = 1;
+
+			foreach($clash['players'] AS $player) {
+				$duration = new DUration($player['duration']/1000);
+				$msg .= $place . ". <@".$player['slack_uid']."> (IGN: ".$player['codingamerNickname']." / Team: ".$player['team'].")\n";
+				$msg .= "Score: ".$player['score']."\n";
+				$msg .= "Duration: ".$duration->humanize()."\n\n";
+
+				$place++;
+			}
+
+			$msg .= "```\n\n";
+		
+
+			} else {
+
+
+			$msg .= "*Clash #".$i." Report*\n";
+			$msg .= "```Clash invalid! https://www.codingame.com/clashofcode/clash/report/".$clash['clash_url']."```\n\n";				
+
+
+			}
+			$i++;
+		}
+
+
+		return $msg;
+	}
+
+
+
 }
 
 

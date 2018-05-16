@@ -247,6 +247,100 @@ class Game {
 
 	}
 
+	//move this somewhere else 
+	public function array_orderby() {
+
+		    $args = func_get_args();
+		    $data = array_shift($args);
+		    foreach ($args as $n => $field) {
+		        if (is_string($field)) {
+		            $tmp = array();
+		            foreach ($data as $key => $row)
+		                $tmp[$key] = $row[$field];
+		            $args[$n] = $tmp;
+		            }
+		    }
+		    $args[] = &$data;
+		    call_user_func_array('array_multisort', $args);
+		    return array_pop($args);
+
+	}	
+
+
+	public function endclash() {
+
+		$collection = (new MongoDB)->{$this->database}->clash;
+		$userdb = (new MongoDB)->{$this->database}->user;
+		$bots = new BotAccounts;
+	
+		$cursor = $collection->find(['finished' => false]);
+		print_r($cursor);
+		if(empty($cursor))
+			return false;
+		
+		$reports = [];
+		$i=0;
+		foreach($cursor AS $document) {
+
+
+				$result = $collection->updateOne(
+
+		   		['url' => $document['url']],
+		    	['$set' => ['finished' => true]]
+
+			);
+
+
+
+			$data = $bots->report($document['url']);
+			if(isset($data['success']['mode']))
+				$reports[$i]['mode'] = $data['success']['mode'];
+
+			$reports[$i]['players'] = $data['success']['players'];
+			$reports[$i]['clash_url'] = $data['success']['publicHandle'];
+			$i++;
+
+		}
+		
+		$return = [];
+
+		$i=0;
+			
+		foreach($reports AS $report) {
+
+			//invalid GAME 
+			if(!isset($report['mode'])) {
+
+
+				$return[$i]['status'] = "Invalid";
+
+
+			} else {
+
+				$return[$i]['status'] = "Valid";
+				$return[$i]['mode'] = $report['mode'];
+
+				foreach($report['players'] AS $k=> $player) {
+
+					$info = $userdb->findOne(['handle' => $player['codingamerNickname']]);
+					$report['players'][$k]['slack_uid'] = $info['uid'];
+					$report['players'][$k]['team']	= $info['team'];
+				}
+
+
+				$return[$i]['players'] = array_slice($this->array_orderby($report['players'], 'score', SORT_DESC, 'duration', SORT_ASC), 0, 4);
+
+				
+				
+			}
+			$return[$i]['clash_url'] = $report['clash_url'];
+			$i++;
+		}
+		
+		return $return;
+
+	}
+
 }
 
 

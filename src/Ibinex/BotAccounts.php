@@ -23,6 +23,40 @@ class BotAccounts {
 		'2613712' => 'Cookie: _ga=GA1.1.160939669.1522740689; _ga=GA1.2.160939669.1522740689; driftt_aid=977a9041-a86f-40d5-aec3-8d0a3d160d53; __qca=P0-119117809-1525103756904; ubvs=54.237.217.1711527858052860136; AWSELB=B795119B02CD9A215A5DE011B19A0ABDD25F4768F59F73419623A44E177941787F58BDA0E675E43E34204B81EE768BE3C09239272971C9CEFC4B3A7E0DAE61A3D151D73B1D; _gid=GA1.1.1989885660.1525959261; JSESSIONID=524DC42F0BCD3CBD784BA137FB9AD613; remcg=Bm1laeN8ej/y7adzAl9bwDAJ9MULZB1FYBk+jKIhiyffAt+nmj4zuOJwlZjYBz9l2fa/bsqNytf4Y7N+yCDnHepJknwtAZnb0XdAqT7Q8mwixg7pcCjtVLOpZOW7vbsFZTXpaNMORZiIKEky1HHMoUuVfs7Evezi8KnJQMHo0LMLYnCyf3A/lNrOSgN4fCkdf/H646nRyBzq3d8z4VOZCKywmEPN5aNuqgrNtj2/gE+nrXuodCwJx1fhp6oeu11twfhGH/mg6I9yR3Brf5m1xfA9x/5uKk4C14G62sIVOauA1IpPJIvKeWMaey8hsLlLrsrVpTVQ+uaPgu47qkdauM/SoUyoMWmiUKMEL86U0Mg55nQstzALlt3cQ2byV/z49n6iKQfXMS/T/u0UwQAffLGZvtQXDlytIOSTT00ApMz8FimKrEcP6xUf2R/0uA0WVvFGe5d5dnQ7k8y6cvU4Rz6IjFM4nt1Ox3gNaVIj/TpjXt1JHrDvqygGx/GmShl2yuRkY3a1bIlwD1B36P15jwb2aq0m4Rkv4GHW2H6Y9qPi6qed44agFcbmsBzUyr1KDrMJkHlwSjqGi8COxosT8Q==; _gat=1'
 	];
 
+	public function report($url) {
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_URL, "https://www.codingame.com/services/ClashOfCodeRemoteService/findClashReportInfoByHandle");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, "[\"".$url."\"]");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
+
+		$headers = array();
+		$headers[] = "Origin: https://www.codingame.com";
+		$headers[] = "Accept-Encoding: gzip, deflate, br";
+		$headers[] = "Accept-Language: en-PH,en;q=0.9,fil-PH;q=0.8,fil;q=0.7,en-US;q=0.6";
+		$headers[] = "User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Mobile Safari/537.36";
+		$headers[] = "Content-Type: application/json;charset=UTF-8";
+		$headers[] = "Accept: application/json, text/plain, */*";
+		$headers[] = "Referer: https://www.codingame.com/clashofcode/clash/report/".$url;
+		$headers[] = "Cookie: _ga=GA1.1.160939669.1522740689; _ga=GA1.2.160939669.1522740689; driftt_aid=977a9041-a86f-40d5-aec3-8d0a3d160d53; __qca=P0-119117809-1525103756904; ubvs=54.237.217.1711527858052860136; remcg=Bm1laeN8ej/y7adzAl9bwDAJ9MULZB1FYBk+jKIhiyffAt+nmj4zuOJwlZjYBz9l2fa/bsqNytf4Y7N+yCDnHepJknwtAZnb0XdAqT7Q8mwixg7pcCjtVLOpZOW7vbsFZTXpaNMORZiIKEky1HHMoUuVfs7Evezi8KnJQMHo0LMLYnCyf3A/lNrOSgN4fCkdf/H646nRyBzq3d8z4VOZCKywmEPN5aNuqgrNtj2/gE+nrXuodCwJx1fhp6oeu11twfhGH/mg6I9yR3Brf5m1xfA9x/5uKk4C14G62sIVOauA1IpPJIvKeWMaey8hsLlLrsrVpTVQ+uaPgu47qkdauM/SoUyoMWmiUKMEL86U0Mg55nQstzALlt3cQ2byV/z49n6iKQfXMS/T/u0UwQAffLGZvtQXDlytIOSTT00ApMz8FimKrEcP6xUf2R/0uA0WVvFGe5d5dnQ7k8y6cvU4Rz6IjFM4nt1Ox3gNaVIj/TpjXt1JHrDvqygGx/GmShl2yuRkY3a1bIlwD1B36P15jwb2aq0m4Rkv4GHW2H6Y9qPi6qed44agFcbmsBzUyr1KDrMJkHlwSjqGi8COxosT8Q==; JSESSIONID=7C98B09A6182C453CC6F42AB0412F1B8; AWSELB=B795119B02CD9A215A5DE011B19A0ABDD25F4768F52D7EC3ECFAA1E6AA700CBF4C60998E39C00821947CF1FA2E5BD52D009DB24B7505F7FC879AB5278DA598E810400AD487; _gid=GA1.1.279304610.1526477122; _gat=1";
+		$headers[] = "Connection: keep-alive";
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+		$result = curl_exec($ch);
+		if (curl_errno($ch)) {
+		   	return false;
+		}
+
+		curl_close ($ch);
+		return json_decode($result, true);
+
+		
+		
+
+	}
 
 	public function deploy(int $bot_count) {
 
