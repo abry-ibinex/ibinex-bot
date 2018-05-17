@@ -22,7 +22,7 @@ class UserCommands {
 
 			$result = $game->players();
 			
-			return '<@'. $uid . "> joined the game! (there are *". count($result) ."* players in the game: ".implode(", ", $result).")";
+			return '<@'. $uid . "> joined the game! (there are *". count($result) ."* players in the game.)";
 
 		}
 	}
@@ -51,26 +51,25 @@ class UserCommands {
         
         $user = new User($uid);
         $game = new Game($uid);
-        
 
-		if(!$game->isOngoing())
-			return "There are no on-going CodingGame sessions.";
-        
-        
-        $statusMessage = "<@". $uid . ">";
-        
-        $isJoined= $user->isJoined();
+        if(!$game->isOngoing()) {
 
-        if ($isJoined){
+			return "There are no CodingGame sessions right now.";
+
+		}
+        
+        $statusMessage = '<@'. $uid . '>';
+        
+        
+        if ($user->hasJoined()){
+            $statusMessage = $statusMessage . " has joined the game";
             
-            $statusMessage .= " has joined the game";
+            $clashOfCodeHandler = $user->getHandler();
             
-            $clashOfCodeHandler = $user->$getHandler();
-            
-            $statusMessage .= " with *" . $clashOfCodeHandler . "* clash of code name."
+            $statusMessage = $statusMessage . " as *" . $clashOfCodeHandler . "*.";
             
         } else {
-            $statusMessage.= " has *not* registered in any clash of code games."
+            $statusMessage = $statusMessage. " is *not* registered in any clash of code games.";
         }
         
         return $statusMessage;

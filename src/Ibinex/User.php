@@ -115,25 +115,28 @@ class User {
 
 	}
     
-    public function isJoined(int $uid){
+    public function hasJoined(){
+        
         $collection = (new MongoDB)->{$this->database}->user;
         
-        $result = $collection->find(
-		    ['joined' => true],
-            ['uid'  => $uid]
+        $result = $collection->findOne(
+		    ['uid' => $this->uid, 'joined' => true]
 		);
         
-        return (!empty($result));
+        if(!$result)
+			return false;
+		
+		return true;
     }
     
-    public function getHandler(int $uid){
+    public function getHandler(){
         $collection = (new MongoDB)->{$this->database}->user;
         
-        $result = $collection->find(
-            ['uid'  => $uid]
+        $result = $collection->findOne(
+            ['uid'  => $this->uid]
 		);
         
-        return ($result['handler']);
+        return ($result['handle']);
     }
 
 }
