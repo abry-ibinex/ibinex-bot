@@ -274,7 +274,7 @@ class Game {
 		$bots = new BotAccounts;
 	
 		$cursor = $collection->find(['finished' => false]);
-		print_r($cursor);
+		
 		if(empty($cursor))
 			return false;
 		
@@ -292,14 +292,6 @@ class Game {
                 return -1;
        
                 
-
-
-            $result = $collection->updateOne(
-
-		   		['url' => $document['url']],
-		    	['$set' => ['finished' => true]]
-
-			);
             
 			$reports[$i]['players'] = $data['success']['players'];
 			$reports[$i]['clash_url'] = $data['success']['publicHandle'];
@@ -342,11 +334,21 @@ class Game {
 				}
 
 
-				$return[$i]['players'] = array_slice($this->array_orderby($report['players'], 'score', SORT_DESC, 'duration', SORT_ASC), 0, 4);
+				$return[$i]['players'] = $this->array_orderby($report['players'], 'score', SORT_DESC, 'duration', SORT_ASC);
 
 				
 				
 			}
+
+			//delete ongoing
+            $result = $collection->updateOne(
+
+		   		['url' => $report['clash_url']],
+		    	['$set' => ['finished' => true]]
+
+			);
+
+
 			$return[$i]['clash_url'] = $report['clash_url'];
 			$i++;
 		}
