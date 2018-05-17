@@ -176,13 +176,24 @@ class AdminCommands {
 			$msg .= "------------------------------------------------------------------------------------\n\n";
 			$place = 1;
 
+			$toggle = false;
+			$msg .= str_pad(" Top 4 ", 50, "#", STR_PAD_BOTH) ."\n\n";
 			foreach($clash['players'] AS $player) {
+
+
 				$duration = new DUration($player['duration']/1000);
 				$msg .= $place . ". <@".$player['slack_uid']."> (IGN: ".$player['codingamerNickname']." / Team: ".$player['team'].")\n";
 				$msg .= "Score: ".$player['score']."\n";
 				$msg .= "Duration: ".$duration->humanize()."\n\n";
 
 				$place++;
+
+				if($place > 4 AND $toggle == false) {
+
+					$msg .= str_pad(" Close but not quite ", 50, "#", STR_PAD_BOTH) ."\n\n";
+
+					$toggle = true;
+				}
 			}
 
 			$msg .= "```\n\n";
