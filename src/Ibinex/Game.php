@@ -283,19 +283,24 @@ class Game {
 		foreach($cursor AS $document) {
 
 
-				$result = $collection->updateOne(
+
+			$data = $bots->report($document['url']);
+			if(isset($data['success']['mode']))
+				$reports[$i]['mode'] = $data['success']['mode'];
+            
+            if(!$data['success']['finished'])
+                return -1;
+       
+                
+
+
+            $result = $collection->updateOne(
 
 		   		['url' => $document['url']],
 		    	['$set' => ['finished' => true]]
 
 			);
-
-
-
-			$data = $bots->report($document['url']);
-			if(isset($data['success']['mode']))
-				$reports[$i]['mode'] = $data['success']['mode'];
-
+            
 			$reports[$i]['players'] = $data['success']['players'];
 			$reports[$i]['clash_url'] = $data['success']['publicHandle'];
 			$i++;
@@ -323,8 +328,17 @@ class Game {
 				foreach($report['players'] AS $k=> $player) {
 
 					$info = $userdb->findOne(['handle' => $player['codingamerNickname']]);
-					$report['players'][$k]['slack_uid'] = $info['uid'];
-					$report['players'][$k]['team']	= $info['team'];
+                    
+                    if(!$info['uid']) {
+                        
+                        unset($report['players'][$k]);
+                        
+                    } else {
+                        
+                        $report['players'][$k]['slack_uid'] = $info['uid'];
+                        $report['players'][$k]['team']	= $info['team'];
+                        
+                    }
 				}
 
 

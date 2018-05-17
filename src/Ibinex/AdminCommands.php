@@ -157,9 +157,11 @@ class AdminCommands {
 
 		$result = $game->endclash();
 
-		if(!$result)
+		if($result == false)
 			return "There are no clashes at the moment.";
-
+        elseif($result == -1)
+            return "Please wait for all on-going clashes to be finished before ending the clash.";
+        
 		$i=1;
 		$msg = "";
 
