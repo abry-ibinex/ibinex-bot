@@ -62,11 +62,9 @@ class UserCommands {
         
         
         if ($user->hasJoined()){
-            $statusMessage = $statusMessage . " has joined the game";
+            $statusMessage = $statusMessage . " is registered in the game";
             
-            $clashOfCodeHandler = $user->getHandler();
-            
-            $statusMessage = $statusMessage . " as *" . $clashOfCodeHandler . "*.";
+            $statusMessage = $statusMessage . " as *" . $user->getHandler() . "* playing for Team " . $user->getTeam() . ".";
             
         } else {
             $statusMessage = $statusMessage. " is *not* registered in any clash of code games.";

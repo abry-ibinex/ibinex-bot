@@ -143,5 +143,15 @@ class User {
         
         return ($result['handle']);
     }
+    
+    public function getTeam(){
+        $collection = (new MongoDB)->{$this->database}->user;
+        
+        $result = $collection->findOne(
+            ['uid'  => $this->uid]
+		);
+        
+        return ($result['team']);
+    }
 
 }
