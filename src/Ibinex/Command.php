@@ -14,6 +14,7 @@ class Command {
 		'endclash'		=>	'admin',
 		'register'		=>	'user',
 		'unregister'	=> 	'user',
+        'status'        =>  'user',
 
 
 	];
@@ -30,6 +31,7 @@ class Command {
 		'endclash'		=>	'AdminCommands',
 		'register'		=>	'UserCommands',
 		'unregister'	=>	'UserCommands',
+        'status'        =>  'UserCommands',
 
 
 	];
@@ -62,14 +64,14 @@ class Command {
 			}
 		} 
 
-
 		$this->command=$maincommand;
 		$this->commandType=$this->commands[$maincommand];
 		$this->uid=$uid;
 		$this->parameters = $params;
 		array_shift($this->parameters);		
 		$this->parameters['uid'] = $uid;
-
+        
+        
 		return true;
 		
 			
@@ -86,7 +88,7 @@ class Command {
 
 	
 		if(method_exists('Bot\\Ibinex\\'. $this->commands_map[$this->command],  $this->command)) {
-			
+            
 			$this->message = forward_static_call_array('Bot\\Ibinex\\'. $this->commands_map[$this->command] . '::'. $this->command, $this->parameters);
 			
 			

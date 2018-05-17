@@ -1,6 +1,7 @@
 <?php
 namespace Bot\Ibinex;
 use Bot\Ibinex\Game;
+use Bot\Ibinex\User;
 
 class UserCommands {
 
@@ -44,6 +45,37 @@ class UserCommands {
 
 		}
 	}
+    
+    public static function status($uid){
+        
+        
+        $user = new User($uid);
+        $game = new Game($uid);
+        
+
+		if(!$game->isOngoing())
+			return "There are no on-going CodingGame sessions.";
+        
+        
+        $statusMessage = "<@". $uid . ">";
+        
+        $isJoined= $user->isJoined();
+
+        if ($isJoined){
+            
+            $statusMessage .= " has joined the game";
+            
+            $clashOfCodeHandler = $user->$getHandler();
+            
+            $statusMessage .= " with *" . $clashOfCodeHandler . "* clash of code name."
+            
+        } else {
+            $statusMessage.= " has *not* registered in any clash of code games."
+        }
+        
+        return $statusMessage;
+        
+    }
 
 }
 

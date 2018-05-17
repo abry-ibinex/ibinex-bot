@@ -114,5 +114,26 @@ class User {
 
 
 	}
+    
+    public function isJoined(int $uid){
+        $collection = (new MongoDB)->{$this->database}->user;
+        
+        $result = $collection->find(
+		    ['joined' => true],
+            ['uid'  => $uid]
+		);
+        
+        return (!empty($result));
+    }
+    
+    public function getHandler(int $uid){
+        $collection = (new MongoDB)->{$this->database}->user;
+        
+        $result = $collection->find(
+            ['uid'  => $uid]
+		);
+        
+        return ($result['handler']);
+    }
 
 }
