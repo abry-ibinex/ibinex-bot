@@ -72,7 +72,12 @@ class User {
 		$result = $collection->updateOne(
 
 		    ['uid' => $this->uid, 'joined' => false],
-		    ['$set' => ['joined' => true, 'team' => $this->team, 'timestamp' => time()]]
+		    ['$set' => [
+                'joined' => true,
+                'team' => $this->team,
+                'handle' => $this->handle,
+                'timestamp' => time()
+            ]]
 
 		);
 		
